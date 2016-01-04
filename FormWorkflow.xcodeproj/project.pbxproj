@@ -16,6 +16,7 @@
 		0969CE421C1C4FCE00E3FA08 /* FormEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0969CE411C1C4FCE00E3FA08 /* FormEntry.swift */; };
 		0969CE441C1C5B0A00E3FA08 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0969CE431C1C5B0A00E3FA08 /* FormViewController.swift */; };
 		0969CE461C1C5DBD00E3FA08 /* FormCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0969CE451C1C5DBD00E3FA08 /* FormCells.swift */; };
+		EBDA39CFCB2B18481D114617 /* Pods_FormWorkflow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E749BA71303935073E33CB /* Pods_FormWorkflow.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,9 @@
 		0969CE411C1C4FCE00E3FA08 /* FormEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormEntry.swift; sourceTree = "<group>"; };
 		0969CE431C1C5B0A00E3FA08 /* FormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
 		0969CE451C1C5DBD00E3FA08 /* FormCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormCells.swift; sourceTree = "<group>"; };
+		2AA198F88E336F93A4039B43 /* Pods-FormWorkflow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FormWorkflow.release.xcconfig"; path = "Pods/Target Support Files/Pods-FormWorkflow/Pods-FormWorkflow.release.xcconfig"; sourceTree = "<group>"; };
+		99E749BA71303935073E33CB /* Pods_FormWorkflow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FormWorkflow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD92B1292DE9C1BEE19A4691 /* Pods-FormWorkflow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FormWorkflow.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FormWorkflow/Pods-FormWorkflow.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +41,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBDA39CFCB2B18481D114617 /* Pods_FormWorkflow.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +75,8 @@
 			children = (
 				0969CE2E1C1C4FB000E3FA08 /* FormWorkflow */,
 				0969CE2D1C1C4FB000E3FA08 /* Products */,
+				D81A98564B09DA9EDF172B77 /* Pods */,
+				E46E7E255FB06BDB5D264CA1 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,6 +99,23 @@
 			path = FormWorkflow;
 			sourceTree = "<group>";
 		};
+		D81A98564B09DA9EDF172B77 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FD92B1292DE9C1BEE19A4691 /* Pods-FormWorkflow.debug.xcconfig */,
+				2AA198F88E336F93A4039B43 /* Pods-FormWorkflow.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		E46E7E255FB06BDB5D264CA1 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				99E749BA71303935073E33CB /* Pods_FormWorkflow.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -99,9 +123,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0969CE3E1C1C4FB000E3FA08 /* Build configuration list for PBXNativeTarget "FormWorkflow" */;
 			buildPhases = (
+				2CBFB2F769B602C3EFE00E63 /* Check Pods Manifest.lock */,
 				0969CE281C1C4FB000E3FA08 /* Sources */,
 				0969CE291C1C4FB000E3FA08 /* Frameworks */,
 				0969CE2A1C1C4FB000E3FA08 /* Resources */,
+				ADCF3D9B6E70AF5486C20E79 /* Embed Pods Frameworks */,
+				6766E4C2518F66F256FEE80B /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -157,6 +184,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2CBFB2F769B602C3EFE00E63 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6766E4C2518F66F256FEE80B /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FormWorkflow/Pods-FormWorkflow-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ADCF3D9B6E70AF5486C20E79 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FormWorkflow/Pods-FormWorkflow-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0969CE281C1C4FB000E3FA08 /* Sources */ = {
@@ -279,6 +354,7 @@
 		};
 		0969CE3F1C1C4FB000E3FA08 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FD92B1292DE9C1BEE19A4691 /* Pods-FormWorkflow.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = FormWorkflow/Info.plist;
@@ -290,6 +366,7 @@
 		};
 		0969CE401C1C4FB000E3FA08 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2AA198F88E336F93A4039B43 /* Pods-FormWorkflow.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = FormWorkflow/Info.plist;
