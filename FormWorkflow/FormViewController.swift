@@ -9,22 +9,30 @@
 import UIKit
 import PromiseKit
 
-enum ExitPointError: CancellableErrorType {
+enum ExitPointError: ErrorType {
   case CancelCheckInOut
   case CancelBooking
-  
-  var cancelled: Bool { return true }
 }
+
+
+
 
 class FormViewController: UITableViewController {
   
-  var items: [FormEntryType]
+  private var items: [FormEntryType]
+  private var editMode: Bool = false
   
-  static func instance(items items: [FormEntryType]) -> FormViewController {
+  static func instance(items items: [FormEntryType], editable: Bool = false) -> FormViewController {
     let form = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("FormViewController") as! FormViewController
     form.items = items
     form.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: form, action: "cancel")
-    form.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Validate", style: UIBarButtonItemStyle.Plain, target: form, action: "next")
+    let validateBtn = UIBarButtonItem(title: "Validate", style: UIBarButtonItemStyle.Plain, target: form, action: "next")
+    if editable {
+      let editBtn = UIBarButtonItem(title: "Edit", style: UIBarButtonItemStyle.Plain, target: form, action: "edit")
+      form.navigationItem.rightBarButtonItems = [validateBtn, editBtn]
+    } else {
+      form.navigationItem.rightBarButtonItem = validateBtn
+    }
     return form
   }
 
@@ -51,16 +59,18 @@ class FormViewController: UITableViewController {
     let cell: UITableViewCell
     
     switch item {
-    case is FormEntry<String>:
-      cell = tableView.dequeueReusableCell(indexPath: indexPath) as TextCell
-    case is FormEntry<Bool>:
-      cell = tableView.dequeueReusableCell(indexPath: indexPath) as BoolCell
+    case let e as FormEntry<String>:
+      let textCell = tableView.dequeueReusableCell(indexPath: indexPath) as TextCell
+      textCell.fill(e, editMode: editMode)
+      cell = textCell
+    case let e as FormEntry<Bool>:
+      let boolCell = tableView.dequeueReusableCell(indexPath: indexPath) as BoolCell
+      boolCell.fill(e, editMode: editMode)
+      cell = boolCell
     default:
       fatalError("No Cell type matching item of \(item)")
     }
 
-    (cell as! FormEntryFillable).fill(item)
-    
     return cell
   }
   
@@ -73,15 +83,21 @@ class FormViewController: UITableViewController {
     reject(ExitPointError.CancelCheckInOut)
   }
   func next() {
-    let allValid = items.reduce(true) { (all, entry) -> Bool in
-      all && entry.isValid
-    }
-    if allValid {
+    if isValid {
       fulfill()
     }
     else {
-      print("Some fields were not valid, could not continue to next screen")
+      let alert = UIAlertController(title: "Formulaire incomplet", message: "Tous les champs doivent être valides", preferredStyle: .Alert)
+      alert.addAction(UIAlertAction(title: "Oups", style: .Cancel, handler: nil))
+      self.presentViewController(alert, animated: true, completion: nil)
     }
+  }
+  func edit() {
+    if editMode {
+      for i in self.items { i.commit() }
+    }
+    editMode = !editMode
+    self.tableView.reloadData()
   }
   
   var stressCount = 0
