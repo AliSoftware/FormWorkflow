@@ -16,6 +16,7 @@
 		0969CE421C1C4FCE00E3FA08 /* FormEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0969CE411C1C4FCE00E3FA08 /* FormEntry.swift */; };
 		0969CE441C1C5B0A00E3FA08 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0969CE431C1C5B0A00E3FA08 /* FormViewController.swift */; };
 		0969CE461C1C5DBD00E3FA08 /* FormCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0969CE451C1C5DBD00E3FA08 /* FormCells.swift */; };
+		09D5F2321C3C593000FC04D9 /* Workflow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D5F2311C3C593000FC04D9 /* Workflow.swift */; };
 		EBDA39CFCB2B18481D114617 /* Pods_FormWorkflow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99E749BA71303935073E33CB /* Pods_FormWorkflow.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		0969CE411C1C4FCE00E3FA08 /* FormEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormEntry.swift; sourceTree = "<group>"; };
 		0969CE431C1C5B0A00E3FA08 /* FormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
 		0969CE451C1C5DBD00E3FA08 /* FormCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormCells.swift; sourceTree = "<group>"; };
+		09D5F2311C3C593000FC04D9 /* Workflow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workflow.swift; sourceTree = "<group>"; };
 		2AA198F88E336F93A4039B43 /* Pods-FormWorkflow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FormWorkflow.release.xcconfig"; path = "Pods/Target Support Files/Pods-FormWorkflow/Pods-FormWorkflow.release.xcconfig"; sourceTree = "<group>"; };
 		99E749BA71303935073E33CB /* Pods_FormWorkflow.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FormWorkflow.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD92B1292DE9C1BEE19A4691 /* Pods-FormWorkflow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FormWorkflow.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FormWorkflow/Pods-FormWorkflow.debug.xcconfig"; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			children = (
 				0969CE2F1C1C4FB000E3FA08 /* AppDelegate.swift */,
 				0969CE311C1C4FB000E3FA08 /* ViewController.swift */,
+				09D5F2311C3C593000FC04D9 /* Workflow.swift */,
 				0943F4961C3B326B0083EF3C /* GenericForm */,
 				0943F4951C3B320F0083EF3C /* SupportingFiles */,
 			);
@@ -241,6 +244,7 @@
 				0943F4941C3B266C0083EF3C /* Reusable.swift in Sources */,
 				0969CE321C1C4FB000E3FA08 /* ViewController.swift in Sources */,
 				0969CE421C1C4FCE00E3FA08 /* FormEntry.swift in Sources */,
+				09D5F2321C3C593000FC04D9 /* Workflow.swift in Sources */,
 				0969CE441C1C5B0A00E3FA08 /* FormViewController.swift in Sources */,
 				0969CE301C1C4FB000E3FA08 /* AppDelegate.swift in Sources */,
 				0969CE461C1C5DBD00E3FA08 /* FormCells.swift in Sources */,

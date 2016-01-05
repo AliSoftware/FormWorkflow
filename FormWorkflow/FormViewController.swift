@@ -10,8 +10,7 @@ import UIKit
 import PromiseKit
 
 enum ExitPointError: ErrorType {
-  case CancelCheckInOut
-  case CancelBooking
+  case CancelWorkflow
 }
 
 
@@ -80,15 +79,15 @@ class FormViewController: UITableViewController {
   }
 
   func cancel() {
-    reject(ExitPointError.CancelCheckInOut)
+    reject(ExitPointError.CancelWorkflow)
   }
   func next() {
     if isValid {
       fulfill()
     }
     else {
-      let alert = UIAlertController(title: "Formulaire incomplet", message: "Tous les champs doivent être valides", preferredStyle: .Alert)
-      alert.addAction(UIAlertAction(title: "Oups", style: .Cancel, handler: nil))
+      let alert = UIAlertController(title: "Form incomplete", message: "All fields must be valid", preferredStyle: .Alert)
+      alert.addAction(UIAlertAction(title: "Woops", style: .Cancel, handler: nil))
       self.presentViewController(alert, animated: true, completion: nil)
     }
   }
@@ -97,6 +96,7 @@ class FormViewController: UITableViewController {
       for i in self.items { i.commit() }
     }
     editMode = !editMode
+    self.navigationItem.rightBarButtonItems?[0].enabled = !editMode
     self.tableView.reloadData()
   }
   
