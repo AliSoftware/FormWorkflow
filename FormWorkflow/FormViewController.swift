@@ -73,7 +73,15 @@ class FormViewController: UITableViewController {
     reject(ExitPointError.CancelCheckInOut)
   }
   func next() {
-    fulfill()
+    let allValid = items.reduce(true) { (all, entry) -> Bool in
+      all && entry.isValid
+    }
+    if allValid {
+      fulfill()
+    }
+    else {
+      print("Some fields were not valid, could not continue to next screen")
+    }
   }
   
   var stressCount = 0
