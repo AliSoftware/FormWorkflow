@@ -19,8 +19,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TPZ-fP-nlG">
-                                <rect key="frame" x="277" y="285" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <rect key="frame" x="234" y="285" width="133" height="30"/>
+                                <state key="normal" title="Start the Workflow!"/>
                                 <connections>
                                     <action selector="startWorkflow:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eej-WS-1kV"/>
                                 </connections>

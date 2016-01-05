@@ -26,26 +26,19 @@ class ViewController: UIViewController {
     .then {
       self.pushScreen2(nc)
     }
-    .always {
-      self.dismissViewControllerAnimated(true, completion: nil)
+    .recover { (error: ErrorType) -> Void in
+      try self.handleCancellation(error)
     }
-    .recover { (error: ErrorType) -> Promise<Void> in
-      guard let e = error as? ExitPointError else { return Promise<Void>(error: error) }
-      switch e {
-      case .CancelCheckInOut:
-        print("Cancelled the CheckIn or CheckOut")
-      case .CancelBooking:
-        print("Cancelled the whole Booking!")
-      case .OtherError(let err):
-        print("Some other error)")
-        return Promise<Void>(error: err)
-      }
-      return Promise<Void>(())
+    .always {
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     .error { e in
-      print("Wooops, something bad happened: \(e)")
+      print("Wooops, something bad (other than a cancellation) happened: \(e)")
     }
   }
+  
+  
+  
   
   private func pushScreen1(nc: UINavigationController) -> Promise<Void> {
     let firstNameEntry = FormEntry<String>(label: "Prénom", value: "Paul") { $0?.characters.count > 0 }
@@ -62,6 +55,9 @@ class ViewController: UIViewController {
     }
   }
   
+  
+  
+  
   private func pushScreen2(nc: UINavigationController) -> Promise<Void> {
     let licenseEntry = FormEntry<String>(label: "Numéro de permis", value: "12345054321") { $0?.characters.count > 0 }
     let cbEntry = FormEntry<String>(label: "Carte Bleue", value: "**** **** 4242") { $0?.characters.count > 0 }
@@ -74,4 +70,17 @@ class ViewController: UIViewController {
       print("License \(licenseEntry.value!), CB = \(cbEntry.value!)")
     }
   }
+  
+  
+  
+  private func handleCancellation(error: ErrorType) throws -> Void {
+    guard let exitError = error as? ExitPointError else { throw error }
+    switch exitError {
+    case .CancelCheckInOut:
+      print("Cancelled the CheckIn or CheckOut")
+    case .CancelBooking:
+      print("Cancelled the whole Booking!")
+    }
+  }
+  
 }

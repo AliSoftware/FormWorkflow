@@ -12,15 +12,8 @@ import PromiseKit
 enum ExitPointError: CancellableErrorType {
   case CancelCheckInOut
   case CancelBooking
-  case OtherError(ErrorType)
   
-  var cancelled: Bool {
-    if case .CancelCheckInOut = self {
-      return true
-    } else {
-      return false
-    }
-  }
+  var cancelled: Bool { return true }
 }
 
 class FormViewController: UITableViewController {
@@ -81,5 +74,14 @@ class FormViewController: UITableViewController {
   }
   func next() {
     fulfill()
+  }
+  
+  var stressCount = 0
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    stressCount += 1
+    if stressCount >= 5 {
+      let stressError = NSError(domain: "UserStressLevelTooHigh", code: 5, userInfo: [NSLocalizedDescriptionKey: "Chill, man!"])
+      reject(stressError)
+    }
   }
 }
