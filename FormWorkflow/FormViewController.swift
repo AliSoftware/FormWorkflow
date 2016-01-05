@@ -7,6 +7,21 @@
 //
 
 import UIKit
+import PromiseKit
+
+enum ExitPointError: CancellableErrorType {
+  case CancelCheckInOut
+  case CancelBooking
+  case OtherError(ErrorType)
+  
+  var cancelled: Bool {
+    if case .CancelCheckInOut = self {
+      return true
+    } else {
+      return false
+    }
+  }
+}
 
 class FormViewController: UITableViewController {
   
@@ -15,6 +30,8 @@ class FormViewController: UITableViewController {
   static func instance(items items: [FormEntryType]) -> FormViewController {
     let form = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("FormViewController") as! FormViewController
     form.items = items
+    form.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.Plain, target: form, action: "cancel")
+    form.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Validate", style: UIBarButtonItemStyle.Plain, target: form, action: "next")
     return form
   }
 
@@ -52,5 +69,17 @@ class FormViewController: UITableViewController {
     (cell as! FormEntryFillable).fill(item)
     
     return cell
+  }
+  
+  private let (_promise, fulfill, reject) = Promise<Void>.pendingPromise()
+  func promise() -> Promise<Void> {
+    return _promise
+  }
+
+  func cancel() {
+    reject(ExitPointError.CancelCheckInOut)
+  }
+  func next() {
+    fulfill()
   }
 }

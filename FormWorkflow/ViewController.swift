@@ -7,33 +7,71 @@
 //
 
 import UIKit
+import PromiseKit
 
 class ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
-    let d = NSDate()
-    d.timeIntervalSinceNow
   }
   
   @IBAction func startWorkflow(sender: UIButton) {
-    let nc = UINavigationController(rootViewController: firstScreen)
-    firstScreen.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .Plain, target: self, action: "next")
+    let nc = UINavigationController()
     self.presentViewController(nc, animated: true, completion: nil)
+    
+    firstly {
+      self.pushScreen1(nc)
+    }
+    .then {
+      self.pushScreen2(nc)
+    }
+    .always {
+      self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    .recover { (error: ErrorType) -> Promise<Void> in
+      guard let e = error as? ExitPointError else { return Promise<Void>(error: error) }
+      switch e {
+      case .CancelCheckInOut:
+        print("Cancelled the CheckIn or CheckOut")
+      case .CancelBooking:
+        print("Cancelled the whole Booking!")
+      case .OtherError(let err):
+        print("Some other error)")
+        return Promise<Void>(error: err)
+      }
+      return Promise<Void>(())
+    }
+    .error { e in
+      print("Wooops, something bad happened: \(e)")
+    }
   }
   
-  private lazy var firstScreen: UIViewController = {
+  private func pushScreen1(nc: UINavigationController) -> Promise<Void> {
     let firstNameEntry = FormEntry<String>(label: "Prénom", value: "Paul") { $0?.characters.count > 0 }
     let lastNameEntry = FormEntry<String>(label: "Nom", value: "Auchon") { $0?.characters.count > 0 }
-    //    let dobEntry = FormEntry<NSDate>(label: "Date Naissance") { $0?.timeIntervalSinceNow < -86400 }
     let checkEntry = FormEntry<Bool>(label: "Plus de 21 ans") { $0 == true }
+    let form = FormViewController.instance(items: [firstNameEntry, lastNameEntry, checkEntry])
     
-    return FormViewController.instance(items: [firstNameEntry, lastNameEntry, checkEntry])
-  }()
+    nc.pushViewController(form, animated: false)
+    
+    return form.promise().then { () -> () in
+      // Process result of this screen before moving to next screen
+      let (surname, lastname, okAge) = (firstNameEntry.value!, lastNameEntry.value!, checkEntry.value)
+      print("\(surname) \(lastname) — Age OK = \(okAge ?? false)")
+    }
+  }
   
-  func next() {
-    print("NEXT!")
+  private func pushScreen2(nc: UINavigationController) -> Promise<Void> {
+    let licenseEntry = FormEntry<String>(label: "Numéro de permis", value: "12345054321") { $0?.characters.count > 0 }
+    let cbEntry = FormEntry<String>(label: "Carte Bleue", value: "**** **** 4242") { $0?.characters.count > 0 }
+    let form = FormViewController.instance(items: [licenseEntry, cbEntry])
+    
+    nc.pushViewController(form, animated: true)
+    
+    return form.promise().then { () -> () in
+      // Process result of this screen before moving to next screen
+      print("License \(licenseEntry.value!), CB = \(cbEntry.value!)")
+    }
   }
 }
-

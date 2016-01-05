@@ -26,10 +26,16 @@ final class TextCell: UITableViewCell, Reusable, FormEntryFillable {
 final class BoolCell: UITableViewCell, Reusable, FormEntryFillable {
   @IBOutlet var titleLabel: UILabel!
   @IBOutlet var boolSwitch: UISwitch!
+  var entry: FormEntry<Bool>!
   
   func fill(entry: FormEntryType) {
     guard let entry = entry as? FormEntry<Bool> else { fatalError("Inconsistent FormEntryType type for this cell") }
+    self.entry = entry
     titleLabel.text = entry.label
     boolSwitch.on = entry.value ?? false
+  }
+  
+  @IBAction func onSwitchChanged(sender: UISwitch) {
+    entry.value = sender.on
   }
 }
